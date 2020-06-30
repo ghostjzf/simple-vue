@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="app">
+      <h3>{{ msg }}</h3>
+      <input v-model="msg" />
+    </div>
+  </body>
+  <script src="./simple-vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: document.querySelector(".app"),
+      data: {
+        msg: "hello world",
+      },
+    });
+
+    vm.msg = "something";
+
+    console.log(vm);
+  </script>
+</html>
