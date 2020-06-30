@@ -9,6 +9,8 @@
     <div class="app">
       <h3>{{ msg }}</h3>
       <input v-model="msg" />
+      <button v-on:click="handleClick">点击</button>
+      <button @click="handleClick">点击</button>
     </div>
   </body>
   <script src="./simple-vue.js"></script>
@@ -17,6 +19,13 @@
       el: document.querySelector(".app"),
       data: {
         msg: "hello world",
+      },
+      methods: {
+        handleClick() {
+          console.log(this);
+
+          this.msg = new Date().getTime();
+        },
       },
     });
 

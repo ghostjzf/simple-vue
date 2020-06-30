@@ -20,6 +20,11 @@ const utils = {
 
     console.log(initialValue);
   },
+  on(node, expr, vm, eventName) {
+    const fn = vm.$options.methods[expr];
+
+    node.addEventListener(eventName, fn.bind(vm), false);
+  },
   text(node, textContent, vm) {
     let result;
 
@@ -133,8 +138,17 @@ class Compiler {
         utils[compileKey](node, value, this.vm, eventName);
 
         console.log(compileKey, eventName, value);
+      } else if (this.isEventName(name)) {
+        // @方法执行
+        const [, eventName] = name.split("@");
+
+        utils["on"](node, value, this.vm, eventName);
       }
     });
+  }
+
+  isEventName(name) {
+    return name.startsWith("@");
   }
 
   isDirector(name) {
@@ -158,8 +172,6 @@ class Compiler {
     while ((firstChild = el.firstChild)) {
       f.appendChild(el.firstChild);
     }
-
-    console.dir(f);
 
     return f;
   }
